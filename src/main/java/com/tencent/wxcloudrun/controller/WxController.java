@@ -52,6 +52,9 @@ public class WxController {
         map.put("template_id", "osQSdCeHkRLm4KoShzn4SaGjsA41F8lvG2zMHN01X4c");
         map.put("data", dataJson.toJSONString());
 
+        map.put("data.thing1.value", "购票服务");
+        map.put("data.thing3.value", "购票成功");
+
         final String dataJsonStr = JSONObject.toJSONString(map);
 
         logger.info("requestData:" + dataJsonStr);
