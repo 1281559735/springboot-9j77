@@ -50,10 +50,10 @@ public class WxController {
 //        map.put("cloudbase_access_token", cloudBaseAccessToken);
         map.put("touser", xWxOpenid);
         map.put("template_id", "osQSdCeHkRLm4KoShzn4SaGjsA41F8lvG2zMHN01X4c");
-        map.put("data", dataJson.toJSONString());
+        map.put("data", dataJson);
 
-        map.put("data.thing1.value", "购票服务");
-        map.put("data.thing3.value", "购票成功");
+   //     map.put("data.thing1.value", "购票服务");
+    //    map.put("data.thing3.value", "购票成功");
 
         final String dataJsonStr = JSONObject.toJSONString(map);
 
