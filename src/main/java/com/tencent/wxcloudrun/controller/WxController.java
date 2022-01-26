@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 /**
  * @author 龚紫晗
@@ -37,23 +36,25 @@ public class WxController {
 
 //        final String uuId = UUID.randomUUID().toString();
 
+        Map<String, Object> map = new HashMap<>();
+
         JSONObject dataJson = new JSONObject();
         JSONObject thing1DataJson = new JSONObject();
         JSONObject thing3DataJson = new JSONObject();
 
-        thing1DataJson.put("value","购票服务");
-        thing3DataJson.put("value","购票成功");
+        thing1DataJson.put("value", "购票服务");
+        thing3DataJson.put("value", "购票成功");
 
-        dataJson.put("thing1",thing1DataJson);
-        dataJson.put("thing3",thing3DataJson);
+        dataJson.put("thing1", thing1DataJson);
+        dataJson.put("thing3", thing3DataJson);
+//        map.put("cloudbase_access_token", cloudBaseAccessToken);
+        map.put("touser", xWxOpenid);
+        map.put("template_id", "osQSdCeHkRLm4KoShzn4SaGjsA41F8lvG2zMHN01X4c");
+        map.put("data", dataJson.toJSONString());
 
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("cloudbase_access_token", cloudBaseAccessToken);
-        jsonObject.put("touser", xWxOpenid);
-        jsonObject.put("template_id", "osQSdCeHkRLm4KoShzn4SaGjsA41F8lvG2zMHN01X4c");
-        jsonObject.put("data", dataJson.toJSONString());
+        final String dataJsonStr = JSONObject.toJSONString(map);
 
-
+        logger.info("requestData:" + dataJsonStr);
 
 //        服务名称
 //        {{thing1.DATA}}
@@ -65,10 +66,9 @@ public class WxController {
 //        final String data = gettemplateJson.getJSONArray("data").get(0).toString()
 
 
-
 //        String wxUrl = "https:api.weixin.qq.com/cgi-bin/message/device/subscribe/send";
-        String wxUrl = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send";
-        final String result = HttpUtil.post(wxUrl, jsonObject.toJSONString());
+        String wxUrl = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?cloudbase_access_token=" + cloudBaseAccessToken;
+        final String result = HttpUtil.post(wxUrl, dataJsonStr);
 
         logger.info("result:" + result);
 
