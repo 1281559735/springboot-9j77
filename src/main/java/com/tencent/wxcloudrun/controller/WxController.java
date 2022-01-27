@@ -27,12 +27,20 @@ public class WxController {
         this.logger = LoggerFactory.getLogger(WxController.class);
     }
 
+    private
+
+    @GetMapping(value = "/subscribe")
+    ApiResponse subscribe(HttpServletRequest request) {
+        final String xWxOpenid = request.getHeader("X-WX-OPENID");
+        return ApiResponse.ok(xWxOpenid);
+    }
 
     @GetMapping(value = "/sendMsg")
     ApiResponse sendMsg(HttpServletRequest request) {
 
         final String cloudBaseAccessToken = request.getHeader("X-WX-CLOUDBASE-ACCESS-TOKEN");
-        final String xWxOpenid = request.getHeader("X-WX-OPENID");
+//        final String xWxOpenid = request.getHeader("X-WX-OPENID");
+        final String xWxOpenid = "o4K0-5VdaH617yjtIK-PI_T60S1o";
 
 //        final String uuId = UUID.randomUUID().toString();
 
@@ -70,7 +78,8 @@ public class WxController {
 
 
 //        String wxUrl = "https:api.weixin.qq.com/cgi-bin/message/device/subscribe/send";
-        String wxUrl = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?cloudbase_access_token=" + cloudBaseAccessToken;
+//        String wxUrl = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?cloudbase_access_token=" + cloudBaseAccessToken;
+        String wxUrl = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send";
         final String result = HttpUtil.post(wxUrl, dataJsonStr);
 
         logger.info("result:" + result);
